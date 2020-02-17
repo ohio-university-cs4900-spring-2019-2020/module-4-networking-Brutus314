@@ -34,6 +34,8 @@ public:
    virtual void onKeyDown( const SDL_KeyboardEvent& key );
    virtual void onKeyUp( const SDL_KeyboardEvent& key );
 
+   float height;
+
 protected:
    GLViewNetworking( const std::vector< std::string >& args );
    virtual void onCreate();

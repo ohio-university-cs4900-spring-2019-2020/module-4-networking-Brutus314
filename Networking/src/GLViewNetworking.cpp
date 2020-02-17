@@ -67,7 +67,7 @@ GLViewNetworking::GLViewNetworking(const std::vector< std::string >& args) : GLV
 	//    calls GLView::onCreate()
 
 	//GLViewNetworking::onCreate() is invoked after this module's LoadMap() is completed.
-
+	height = 20;
 }
 
 void GLViewNetworking::onCreate()
@@ -139,7 +139,6 @@ void GLViewNetworking::onMouseMove(const SDL_MouseMotionEvent& e)
 
 void GLViewNetworking::onKeyDown(const SDL_KeyboardEvent& key)
 {
-	static float height = 0;
 	GLView::onKeyDown(key);
 	if (key.keysym.sym == SDLK_0)
 		this->setNumPhysicsStepsPerRender(1);
@@ -152,6 +151,10 @@ void GLViewNetworking::onKeyDown(const SDL_KeyboardEvent& key)
 		msg.size_scale = Vector(2.0f, 2.0f, 2.0f);
 		msg.location = Vector(20.0f, 20.0f, height);
 		client->sendNetMsgSynchronousTCP(msg);
+		// Place the object in this world as well
+		WO* wo = WO::New(msg.model_path, msg.size_scale);
+		wo->setPosition(msg.location);
+		ManagerGLView::getGLView()->getWorldContainer()->push_back(wo);
 		height += 20;
 	}
 }

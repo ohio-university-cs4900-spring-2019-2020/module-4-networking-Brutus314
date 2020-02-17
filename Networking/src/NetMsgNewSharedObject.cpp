@@ -29,6 +29,7 @@ void NetMsgNewSharedObject::onMessageArrived() {
 	WO* wo = WO::New(model_path, size_scale);
 	wo->setPosition(location);
 	ManagerGLView::getGLView()->getWorldContainer()->push_back(wo);
+	ManagerGLView::getGLView<GLViewNetworking>()->height += 20;
 }
 
 // For debug purposes
